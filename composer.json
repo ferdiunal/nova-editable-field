@@ -1,13 +1,44 @@
 {
     "name": "ferdiunal/nova-editable-field",
-    "description": "A Laravel Nova field.",
+    "description": "A Laravel Nova package to make fields editable.",
+    "authors": [
+        {
+            "name": "Ferdi Ünal",
+            "email": "ferdiunal@outlook.com",
+            "homepage": "https://gitub.com/ferdiunal",
+            "role": "Developer"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/ferdiunal"
+        },
+        {
+            "type": "buymeacoffee",
+            "url": "https://buymeacoffee.com/ferdiunal"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "editable",
+        "field",
+        "nova-editable-field",
+        "nova-editable",
+        "nova-field"
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0"
+        "php": "^8.2",
+        "laravel/framework": "^10.0|^11.0",
+        "laravel/nova": "^4.0"
     },
     "autoload": {
         "psr-4": {
