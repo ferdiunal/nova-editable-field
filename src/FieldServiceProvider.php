@@ -4,7 +4,6 @@ namespace Ferdiunal\NovaEditableField;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Nova;
