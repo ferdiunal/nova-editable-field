@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .nova-editable-field {
+        > div {
+            padding: 0;
+            @apply nr-min-w-full;
+        }
+    }
+}
+
+html.dark {
+    [data-radix-popper-content-wrapper] > div {
+        @apply !nr-bg-gray-800 !nr-border-gray-700;
+    }
+    [data-radix-popper-content-wrapper] [data-popover-arrow] {
+        @apply nr-fill-gray-800;
+    }
+}
