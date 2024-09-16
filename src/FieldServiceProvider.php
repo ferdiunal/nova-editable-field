@@ -26,7 +26,7 @@ class FieldServiceProvider extends ServiceProvider
 
                     /**
                      * Make the field editable on index page
-                     * 
+                     *
                      * @param NovaRequest $request
                      * @param string $popoverWidth
                      */

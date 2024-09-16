@@ -1,18 +1,15 @@
-// import novaTailwind from "../../../vendor/laravel/nova/tailwind.config.js";
-const path = require("path");
-const novaTailwind = require(path.resolve(
-    __dirname,
-    "../../vendor/laravel/nova/tailwind.config.js"
-));
-
+import { generateTailwindColors } from '../../vendor/laravel/nova/generators'
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     prefix: "nr-",
     content: ["./resources/**/*{js,vue,blade.php}"],
-    darkMode: ["class"],
+    darkMode: ['class', '[class="dark"]'],
     theme: {
-        colors: novaTailwind.theme.colors,
+        colors: generateTailwindColors(),
         extend: {},
+    },
+    corePlugins: {
+        preflight: false,
     },
     keyframes: {
         slideDownAndFade: {
