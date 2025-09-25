@@ -40,39 +40,83 @@ export default {
       isPopoverOpen: false,
     };
   },
-  computed: {
-    fieldValue() {
-      return this.field.displayedAs || this.field.value;
+    computed:   {
+        fieldValue() {
+            return this.field.displayedAs || this.field.value;
+        },
+        viewField() {
+            return {
+                ...this.field,
+                component: `index-${this.field.original_field}`,
+            };
+        },
+        formFieldComponent() {
+            return {
+                ...this.field,
+                component: `form-${this.field.original_field}`,
+            };
+        },
+        resources() {
+            try {
+                return this.$parent.$parent.resources;
+            } catch (error) {
+                return [];
+            }
+        },
+
+        currentResourceIndex() {
+            const resources = this.resources;
+
+            let list = [];
+            if (Array.isArray(resources)) {
+                list = resources;
+            } else if (resources && typeof resources === "object") {
+                list = Object.values(resources);
+            } else {
+                list = [];
+            }
+
+            const idxByIdentity = list.findIndex((r) => r === this.resource);
+            if (idxByIdentity !== -1) return idxByIdentity;
+
+            const resourceId =
+                (this.resource && this.resource.id && this.resource.id.value) ??
+                (this.resource && this.resource.value) ??
+                null;
+
+            if (resourceId !== null) {
+                const idxById = list.findIndex((r) => {
+                    const rId = (r && r.id && r.id.value) ?? (r && r.value) ?? null;
+                    return rId === resourceId;
+                });
+                if (idxById !== -1) return idxById;
+            }
+
+            const idxByAttr = list.findIndex((r) =>
+                r && this.resource
+                    ? Object.keys(this.resource).every((k) =>
+                        r.hasOwnProperty(k) ? r[k] === this.resource[k] : true
+                    )
+                    : false
+            );
+            if (idxByAttr !== -1) return idxByAttr;
+
+            return 0;
+        },
+
+        side() {
+            const idx = Number.isFinite(this.currentResourceIndex)
+                ? this.currentResourceIndex
+                : 0;
+            const len = Array.isArray(this.resources)
+                ? this.resources.length
+                : this.resources && typeof this.resources === "object"
+                    ? Object.keys(this.resources).length
+                    : 0;
+
+            return idx > len - 3 ? "top" : "bottom";
+        },
     },
-    viewField() {
-      return {
-        ...this.field,
-        // ...field,
-        component: `index-${this.field.original_field}`,
-      };
-    },
-    formFieldComponent() {
-      return {
-        ...this.field,
-        component: `form-${this.field.original_field}`,
-      };
-    },
-    resources() {
-      try {
-        return this.$parent.$parent.resources;
-      } catch (error) {
-        return [];
-      }
-    },
-    currentResourceIndex() {
-      return this.resources.findIndex((resource) => resource === this.resource);
-    },
-    side() {
-      return this.currentResourceIndex > this.resources.length - 3
-        ? "top"
-        : "bottom";
-    },
-  },
   methods: {
     onConfirm() {
       this.loading = true;
